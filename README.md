@@ -53,7 +53,7 @@ docker-flask-hardened-app/
 ├── Dockerfile
 ├── docker-compose.yml
 ├── .dockerignore
-├── .env.example
+├── .env
 ├── README.md
 ├── SECURITY.md
 ├── LICENSE
@@ -85,7 +85,6 @@ docker-flask-hardened-app/
 
 Made with 💻 by a Cloud Security Engineer, for Cloud Security and DevSecOps Engineers.
 
-----
 
 ## 👨‍💻 Author
 
