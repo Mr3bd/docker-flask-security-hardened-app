@@ -1,0 +1,48 @@
+services:
+  app:
+    build: .
+    env_file: .env
+    expose:
+      - "${APP_PORT}"
+    depends_on:
+      - db
+    read_only: true
+    tmpfs:
+      - /tmp
+      - /home/appuser/.cache
+    security_opt:
+      - no-new-privileges:true
+    cap_drop:
+      - ALL
+    deploy:
+      resources:
+        limits:
+          cpus: '0.50'
+          memory: 512M
+
+  db:
+    image: postgres:16-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: ${POSTGRES_DB}
+      POSTGRES_USER: ${POSTGRES_USER}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD}
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U $${POSTGRES_USER} -d $${POSTGRES_DB}"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  nginx:
+    image: bitnami/nginx:latest
+    depends_on:
+      - app
+    ports:
+      - "8080:8080"
+    volumes:
+      - ./nginx/nginx.conf:/opt/bitnami/nginx/conf/nginx.conf:ro
+
+volumes:
+  pgdata:
