@@ -12,23 +12,6 @@ This project focuses on secure defaults: non-root user, minimal base image, drop
 - Dropped capabilities, no-new-privileges, read-only root FS (via Docker Compose)
 - Minimal attack surface and reproducible local dev experience
 
-## 🚀 Quick start
-
-1) Start the stack:
-```bash
-docker compose up --build -d
-```
-
-2) Visit the app:
-- App via Nginx: http://localhost:8080
-- Health check: http://localhost:8080/healthz
-- DB check: http://localhost:8080/db-check
-
-3) Tear down (If you need stop the containers):
-```bash
-docker compose down -v
-```
-
 ## 🧰 Environment variables
 
 Create `.env` file in the root of project, change values as needed:
@@ -44,6 +27,23 @@ POSTGRES_PASSWORD=apppassword
 POSTGRES_HOST=db
 POSTGRES_PORT=5432
 DATABASE_URL=postgresql://appuser:apppassword@db:5432/appdb
+```
+
+## 🚀 Quick start
+
+1) Start the stack:
+```bash
+docker compose up --build -d
+```
+
+2) Visit the app:
+- App via Nginx: http://localhost:8080
+- Health check: http://localhost:8080/healthz
+- DB check: http://localhost:8080/db-check
+
+3) Tear down (If you need stop the containers):
+```bash
+docker compose down -v
 ```
 
 ## 📁 Project structure
